@@ -56,3 +56,23 @@ window.onload = function() {
 
 // Запуск перевірки при скролі
 window.addEventListener("scroll", reveal);
+
+// Додаємо обробку кліків по містах для мобільних пристроїв
+const cityCards = document.querySelectorAll('.city-card');
+
+cityCards.forEach(card => {
+    card.addEventListener('click', function() {
+        // Працює тільки на екранах телефонів та планшетів
+        if (window.innerWidth <= 900) {
+            // Якщо картка вже відкрита - закриваємо її
+            if (this.classList.contains('active-touch')) {
+                this.classList.remove('active-touch');
+            } else {
+                // Закриваємо всі інші картки
+                cityCards.forEach(c => c.classList.remove('active-touch'));
+                // Відкриваємо ту, по якій клікнули
+                this.classList.add('active-touch');
+            }
+        }
+    });
+});
