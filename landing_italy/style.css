@@ -309,38 +309,6 @@ footer {
 }
 
 /* =========================================
-   АДАПТИВНІСТЬ ДЛЯ ТЕЛЕФОНІВ
-========================================= */
-@media (max-width: 900px) {
-    .taste-row, .taste-row.reverse {
-        flex-direction: column;
-    }
-    .taste-img {
-        width: 100%;
-        height: 300px;
-    }
-}
-@media (max-width: 768px) {
-    .timeline::after {
-        left: 31px;
-    }
-    .timeline-map { 
-        display: none !important; /* Ховаємо мапи на телефонах */
-    }
-    .timeline-item {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 20px;
-    }
-    .timeline-item:nth-child(even) {
-        left: 0;
-    }
-    .timeline-item::after, .timeline-item:nth-child(even)::after {
-        left: 19px;
-    }
-}
-
-/* =========================================
    ЗВ'ЯЗОК (CTA)
 ========================================= */
 .contact-cta {
@@ -393,29 +361,67 @@ footer {
     color: #111;
 }
 
-
 /* =========================================
-   АДАПТИВНІСТЬ ДЛЯ ТЕЛЕФОНІВ
+   АДАПТИВНІСТЬ ДЛЯ ПЛАНШЕТІВ ТА ТЕЛЕФОНІВ
 ========================================= */
+@media (max-width: 900px) {
+    /* Робимо їжу вертикальною з великими фото */
+    .taste-row, .taste-row.reverse {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 70px;
+    }
+    .taste-img {
+        width: 100%;
+        min-height: 350px; /* Гарантуємо, що картинку страв буде гарно видно */
+    }
+}
+
 @media (max-width: 768px) {
+    /* 1. МІСТА: Вимикаємо hover і вмикаємо ефект по кліку (клас active-touch) */
+    .city-card:hover .city-bg { transform: none; }
+    .city-card:hover .city-content-front { opacity: 1; transform: none; }
+    .city-card:hover .city-content-back { opacity: 0; transform: translateY(20px); }
+
+    .city-card.active-touch .city-bg { transform: scale(1.1); }
+    .city-card.active-touch .city-content-front { opacity: 0; transform: translateY(-20px); }
+    .city-card.active-touch .city-content-back { opacity: 1; transform: translateY(0); }
+
+
+    /* 2. ТАЙМЛАЙН ІСТОРІЇ: Мобільний вертикальний режим */
+    .timeline {
+        padding-bottom: 20px;
+    }
+    /* Лінію зсуваємо на лівий край екрана */
     .timeline::after {
-        left: 31px;
+        left: 20px;
     }
-    
-    /* Тепер це правило винесено окремо, як і має бути */
-    .timeline-map { 
-        display: none !important; 
-    }
-    
     .timeline-item {
         width: 100%;
-        padding-left: 70px;
-        padding-right: 20px;
+        padding-left: 60px; /* Відступ від лінії */
+        padding-right: 0;
+        margin-bottom: 60px;
     }
-    .timeline-item:nth-child(even) {
-        left: 0;
-    }
+    /* Усі картки тепер стоять в один ряд, а не в шаховому порядку */
+    .timeline-item:nth-child(even) { left: 0; }
+    
+    /* Крапки на лінії вирівнюємо */
     .timeline-item::after, .timeline-item:nth-child(even)::after {
-        left: 19px;
+        left: 8px;
+    }
+
+    /* Змушуємо картинки історії з'являтися ПІД текстом всередині картки */
+    .timeline-map {
+        display: block !important;
+        position: relative; /* Більше не "літають" над сторінкою */
+        top: 0;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 30px 0 0 0 !important;
+        width: 100%;
+        height: 200px;
+        transform: none !important;
+        opacity: 1; /* Завжди видимі на телефоні */
+        z-index: 1;
     }
 }
