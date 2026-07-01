@@ -360,12 +360,11 @@ footer {
     background-color: #fff;
     color: #111;
 }
-
 /* =========================================
    АДАПТИВНІСТЬ ДЛЯ ПЛАНШЕТІВ ТА ТЕЛЕФОНІВ
 ========================================= */
 @media (max-width: 900px) {
-    /* Робимо їжу вертикальною з великими фото */
+    /* 1. ЇЖА: Робимо картинки великими над текстом */
     .taste-row, .taste-row.reverse {
         flex-direction: column;
         gap: 30px;
@@ -373,12 +372,13 @@ footer {
     }
     .taste-img {
         width: 100%;
-        min-height: 350px; /* Гарантуємо, що картинку страв буде гарно видно */
+        height: 350px !important; /* Жорстко фіксуємо висоту, щоб телефон не сплющував фото */
+        flex: none;
     }
 }
 
 @media (max-width: 768px) {
-    /* 1. МІСТА: Вимикаємо hover і вмикаємо ефект по кліку (клас active-touch) */
+    /* 2. МІСТА: Працюють по кліку (натисканню пальцем) */
     .city-card:hover .city-bg { transform: none; }
     .city-card:hover .city-content-front { opacity: 1; transform: none; }
     .city-card:hover .city-content-back { opacity: 0; transform: translateY(20px); }
@@ -387,41 +387,38 @@ footer {
     .city-card.active-touch .city-content-front { opacity: 0; transform: translateY(-20px); }
     .city-card.active-touch .city-content-back { opacity: 1; transform: translateY(0); }
 
-
-    /* 2. ТАЙМЛАЙН ІСТОРІЇ: Мобільний вертикальний режим */
-    .timeline {
-        padding-bottom: 20px;
-    }
-    /* Лінію зсуваємо на лівий край екрана */
+    /* 3. ТАЙМЛАЙН ІСТОРІЇ: Вирівнюємо лінію */
     .timeline::after {
-        left: 20px;
+        left: 31px; 
     }
     .timeline-item {
         width: 100%;
-        padding-left: 60px; /* Відступ від лінії */
-        padding-right: 0;
-        margin-bottom: 60px;
+        padding-left: 70px;
+        padding-right: 20px;
+        margin-bottom: 40px;
     }
-    /* Усі картки тепер стоять в один ряд, а не в шаховому порядку */
-    .timeline-item:nth-child(even) { left: 0; }
-    
-    /* Крапки на лінії вирівнюємо */
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
     .timeline-item::after, .timeline-item:nth-child(even)::after {
-        left: 8px;
+        left: 19px; 
     }
 
-    /* Змушуємо картинки історії з'являтися ПІД текстом всередині картки */
+    /* 4. КАРТИНКИ ІСТОРІЇ: Показуємо їх ПІД текстом на телефоні */
     .timeline-map {
         display: block !important;
-        position: relative; /* Більше не "літають" над сторінкою */
-        top: 0;
+        position: relative !important; /* Ставимо в загальний потік */
+        top: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        margin: 30px 0 0 0 !important;
-        width: 100%;
-        height: 200px;
         transform: none !important;
-        opacity: 1; /* Завжди видимі на телефоні */
-        z-index: 1;
+        opacity: 1 !important; /* Робимо завжди видимими */
+        visibility: visible !important;
+        width: 100% !important;
+        height: 220px !important;
+        margin-top: 20px !important; /* Відступ від тексту */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        z-index: 10 !important;
     }
 }
